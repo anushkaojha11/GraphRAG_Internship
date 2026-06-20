@@ -1,0 +1,177 @@
+{
+  "_meta": {
+    "purpose": "Hop-categorized answer key for retrieval-accuracy evaluation (Hit Rate@3 / Precision@K) of the Expert Finder GraphRAG pipeline. Use the SAME question set across baseline Text2Cypher, +templates, +query expansion, and +decomposition runs.",
+    "source": "v3_neo4j_agri_research_FINAL.cypher",
+    "hop_definition": "Hop count = number of relationship edges traversed from the initially-matched node(s) to reach the answer entity.",
+    "distribution": {"0-hop": 4, "1-hop": 6, "2-hop": 5, "3-hop": 3, "total": 18}
+  },
+  "questions": [
+    {
+      "id": "Q01",
+      "hop_level": 0,
+      "question": "Find researchers who work on durian.",
+      "relationship_tested": "none (property filter only)",
+      "cypher_hint": "MATCH (p:cfPers) WHERE p.cfKeyw CONTAINS 'durian' RETURN p.cfPersNameEN",
+      "ground_truth": ["Dr. Weerachai Thongdee", "Dr. Surachai Buathong", "Dr. Orawan Meesuk"],
+      "notes": "Matches PERS003, PERS014, PERS015 via cfKeyw."
+    },
+    {
+      "id": "Q02",
+      "hop_level": 0,
+      "question": "Find researchers who work on biocontrol agents.",
+      "relationship_tested": "none (property filter only)",
+      "cypher_hint": "MATCH (p:cfPers) WHERE p.cfKeyw CONTAINS 'biocontrol' RETURN p.cfPersNameEN",
+      "ground_truth": ["Dr. Thanaphol Rungroj", "Dr. Surachai Buathong"],
+      "notes": "Matches PERS007, PERS014."
+    },
+    {
+      "id": "Q03",
+      "hop_level": 0,
+      "question": "Find researchers specializing in rice research.",
+      "relationship_tested": "none (property filter only)",
+      "cypher_hint": "MATCH (p:cfPers) WHERE p.cfKeyw CONTAINS 'rice' RETURN p.cfPersNameEN",
+      "ground_truth": ["Assoc.Prof.Dr. Napaporn Suksomboon", "Dr. Sunanta Intrasuk", "Dr. Jittinun Pongsiri"],
+      "notes": "Matches PERS002 (rice,genetics,breeding), PERS009 (glutinous rice), PERS012 (irrigation,...,rice)."
+    },
+    {
+      "id": "Q04",
+      "hop_level": 0,
+      "question": "Find projects related to packaging technology.",
+      "relationship_tested": "none (property filter only)",
+      "cypher_hint": "MATCH (proj:cfProj) WHERE proj.cfKeyw CONTAINS 'packaging' RETURN proj.cfTitleEN",
+      "ground_truth": [
+        "MAP Packaging Technology for Fresh Longan to Extend Shelf Life and Maintain Quality",
+        "Packaging Technology for Rice to Maintain Freshness and Nutritional Value",
+        "Innovative Frozen Durian Packaging for China and ASEAN Markets",
+        "Utilization of Agricultural Waste as Biodegradable Packaging Material"
+      ],
+      "notes": "Matches PROJ002, PROJ012, PROJ017, PROJ025."
+    },
+    {
+      "id": "Q05",
+      "hop_level": 1,
+      "question": "Who leads the NIR durian ripeness detection project?",
+      "relationship_tested": "cfProj_Pers (ProjectLeader)",
+      "cypher_hint": "MATCH (proj:cfProj{cfProjId:'PROJ016'})-[:cfProj_Pers{cfClassId:'ProjectLeader'}]->(p) RETURN p.cfPersNameEN",
+      "ground_truth": ["Dr. Weerachai Thongdee"],
+      "notes": "PROJ016. Dr. Pannipa is Researcher on the same project, not Leader -- a system answering 'Pannipa' is wrong for this specific phrasing."
+    },
+    {
+      "id": "Q06",
+      "hop_level": 1,
+      "question": "What organization coordinates the automated longan grading project?",
+      "relationship_tested": "cfProj_OrgUnit (Coordinator)",
+      "cypher_hint": "MATCH (proj:cfProj{cfProjId:'PROJ001'})-[:cfProj_OrgUnit{cfClassId:'Coordinator'}]->(o) RETURN o.cfNameEN",
+      "ground_truth": ["Chiang Mai University"],
+      "notes": "Direct 1-hop edge -- corrects the earlier assumption that this required a 2-hop person bridge."
+    },
+    {
+      "id": "Q07",
+      "hop_level": 1,
+      "question": "What organization is Dr. Somchai Wichitpong affiliated with?",
+      "relationship_tested": "cfPers_OrgUnit (Affiliation)",
+      "cypher_hint": "MATCH (p:cfPers{cfPersId:'PERS001'})-[:cfPers_OrgUnit]->(o) RETURN o.cfNameEN",
+      "ground_truth": ["Chiang Mai University"],
+      "notes": "PERS001."
+    },
+    {
+      "id": "Q08",
+      "hop_level": 1,
+      "question": "What publication came out of the NIR durian ripeness project?",
+      "relationship_tested": "cfProj_ResPubl (Originator)",
+      "cypher_hint": "MATCH (proj:cfProj{cfProjId:'PROJ016'})-[:cfProj_ResPubl]->(pub) RETURN pub.cfTitleEN",
+      "ground_truth": ["NIR Spectroscopy for Non-Destructive Determination of Durian Ripeness Index"],
+      "notes": "PROJ016 -> PUB003."
+    },
+    {
+      "id": "Q09",
+      "hop_level": 1,
+      "question": "Who invented the high-precision longan grading device patent?",
+      "relationship_tested": "cfPers_ResPat (Inventor / Co-Inventor)",
+      "cypher_hint": "MATCH (pat:cfResPat{cfResPatId:'PAT001'})<-[:cfPers_ResPat]-(p) RETURN p.cfPersNameEN",
+      "ground_truth": ["Dr. Somchai Wichitpong", "Dr. Pannipa Sophon"],
+      "notes": "PAT001: Somchai=Inventor, Pannipa=Co-Inventor. Both correct."
+    },
+    {
+      "id": "Q10",
+      "hop_level": 1,
+      "question": "What is Dr. Somchai Wichitpong's professional email address?",
+      "relationship_tested": "cfPers_EAddr (ProfessionalEmail)",
+      "cypher_hint": "MATCH (p:cfPers{cfPersId:'PERS001'})-[:cfPers_EAddr]->(ea) RETURN ea.cfURI",
+      "ground_truth": ["somchai@cmu.ac.th"],
+      "notes": "Only 5 of 15 researchers (PERS001-005) have an email node. Useful negative-control variant: ask the same question about a PERS006+ researcher and the correct answer is 'no contact info available' -- a system that hallucinates an email there is a real failure mode worth catching."
+    },
+    {
+      "id": "Q11",
+      "hop_level": 2,
+      "question": "What organizations are the researchers on the longan grading project affiliated with?",
+      "relationship_tested": "cfProj_Pers -> cfPers_OrgUnit",
+      "cypher_hint": "MATCH (proj:cfProj{cfProjId:'PROJ001'})-[:cfProj_Pers]->(p)-[:cfPers_OrgUnit]->(o) RETURN DISTINCT o.cfNameEN",
+      "ground_truth": ["Chiang Mai University", "Khon Kaen University"],
+      "notes": "PROJ001 has Somchai (->CMU) and Pannipa (->KKU). Distinct from Q06 -- this specifically tests the person-mediated path, not the direct Coordinator edge."
+    },
+    {
+      "id": "Q12",
+      "hop_level": 2,
+      "question": "What is the organizational affiliation of the author of the longan Machine Vision grading publication?",
+      "relationship_tested": "cfPers_ResPubl -> cfPers_OrgUnit",
+      "cypher_hint": "MATCH (pub:cfResPubl{cfResPublId:'PUB001'})<-[:cfPers_ResPubl]-(p)-[:cfPers_OrgUnit]->(o) RETURN DISTINCT o.cfNameEN",
+      "ground_truth": ["Chiang Mai University", "Khon Kaen University"],
+      "notes": "PUB001 authors: Somchai (Author, ->CMU), Pannipa (Co-Author, ->KKU)."
+    },
+    {
+      "id": "Q13",
+      "hop_level": 2,
+      "question": "What fund supports the longan grading project that Dr. Somchai leads?",
+      "relationship_tested": "cfProj_Pers -> cfProj_Fund",
+      "cypher_hint": "MATCH (p:cfPers{cfPersId:'PERS001'})<-[:cfProj_Pers{cfClassId:'ProjectLeader'}]-(proj)-[:cfProj_Fund]->(f) RETURN f.cfNameEN",
+      "ground_truth": ["ARDA Economic Crop Research Grant"],
+      "notes": "PERS001 leads PROJ001 -> FUND001."
+    },
+    {
+      "id": "Q14",
+      "hop_level": 2,
+      "question": "What facility does Dr. Anan Jirawattana's longan packaging project use?",
+      "relationship_tested": "cfProj_Pers -> cfProj_Facil",
+      "cypher_hint": "MATCH (p:cfPers{cfPersId:'PERS005'})<-[:cfProj_Pers{cfClassId:'ProjectLeader'}]-(proj{cfProjId:'PROJ002'})-[:cfProj_Facil]->(fac) RETURN fac.cfNameEN",
+      "ground_truth": ["Food Packaging Technology Laboratory"],
+      "notes": "PERS005 leads PROJ002 -> FACIL004."
+    },
+    {
+      "id": "Q15",
+      "hop_level": 2,
+      "question": "What fund supports the main project that the durian Phytophthora biocontrol project is a sub-project of?",
+      "relationship_tested": "cfProj_Proj -> cfProj_Fund",
+      "cypher_hint": "MATCH (sub:cfProj{cfProjId:'PROJ015'})-[:cfProj_Proj]->(main)-[:cfProj_Fund]->(f) RETURN f.cfNameEN",
+      "ground_truth": ["Export Standard Promotion Fund"],
+      "notes": "PROJ015 is a sub-project of PROJ020 -> FUND006. Tests the cfProj_Proj hierarchy edge chained with cfProj_Fund."
+    },
+    {
+      "id": "Q16",
+      "hop_level": 3,
+      "question": "What organizations are Dr. Somchai Wichitpong's project collaborators affiliated with?",
+      "relationship_tested": "cfProj_Pers -> cfProj_Pers -> cfPers_OrgUnit",
+      "cypher_hint": "MATCH (p1:cfPers{cfPersId:'PERS001'})<-[:cfProj_Pers]-(proj)-[:cfProj_Pers]->(p2)-[:cfPers_OrgUnit]->(o) WHERE p1<>p2 RETURN DISTINCT o.cfNameEN",
+      "ground_truth": ["Khon Kaen University", "Kasetsart University"],
+      "notes": "Somchai's multi-person projects: PROJ001 (+Pannipa->KKU), PROJ004 (+Manop->Kasetsart). PROJ006 is solo, contributes nothing. Genuine 3-hop bridge via a *different* person on shared projects."
+    },
+    {
+      "id": "Q17",
+      "hop_level": 3,
+      "question": "What fund supports the project led by Dr. Somchai Wichitpong's direct collaborator?",
+      "relationship_tested": "cfPers_Pers -> cfProj_Pers -> cfProj_Fund",
+      "cypher_hint": "MATCH (p1:cfPers{cfPersId:'PERS001'})-[:cfPers_Pers]->(p2)<-[:cfProj_Pers{cfClassId:'ProjectLeader'}]-(proj)-[:cfProj_Fund]->(f) RETURN f.cfNameEN",
+      "ground_truth": ["PMUC Fruit Value Chain Fund"],
+      "notes": "Somchai -[cfPers_Pers:co-investigator]-> Ladawan (PERS013), who leads PROJ003 -> FUND004. Tests the direct person-person edge, distinct from project-mediated collaboration in Q16."
+    },
+    {
+      "id": "Q18",
+      "hop_level": 3,
+      "question": "What publications have Dr. Weerachai Thongdee's project collaborators authored?",
+      "relationship_tested": "cfProj_Pers -> cfProj_Pers -> cfPers_ResPubl",
+      "cypher_hint": "MATCH (p1:cfPers{cfPersId:'PERS003'})<-[:cfProj_Pers]-(proj)-[:cfProj_Pers]->(p2)-[:cfPers_ResPubl]->(pub) WHERE p1<>p2 RETURN DISTINCT pub.cfTitleEN",
+      "ground_truth": ["Efficiency of Machine Vision System in Longan Grading: A Comparative Study"],
+      "notes": "Weerachai's only collaborator across PROJ016 and PROJ019 is Pannipa, who co-authored PUB001."
+    }
+  ]
+}

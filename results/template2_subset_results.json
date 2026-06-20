@@ -1,0 +1,166 @@
+{
+  "run_name": "template2_subset",
+  "pipeline": "template2",
+  "top_k": 3,
+  "n_questions": 4,
+  "overall_hit_rate": 0.75,
+  "overall_precision": 0.75,
+  "hit_rate_by_hop": {
+    "0": 1.0,
+    "1": 0.6666666666666666
+  },
+  "precision_by_hop": {
+    "0": 1.0,
+    "1": 0.6666666666666666
+  },
+  "detailed_results": [
+    {
+      "id": "Q04",
+      "question": "Find projects related to packaging technology.",
+      "hop_level": 0,
+      "ground_truth": [
+        "MAP Packaging Technology for Fresh Longan to Extend Shelf Life and Maintain Quality",
+        "Packaging Technology for Rice to Maintain Freshness and Nutritional Value",
+        "Innovative Frozen Durian Packaging for China and ASEAN Markets",
+        "Utilization of Agricultural Waste as Biodegradable Packaging Material"
+      ],
+      "returned_top_k": [
+        [
+          "PROJ012",
+          "Packaging Technology for Rice to Maintain Freshness and Nutritional Value",
+          "The research project titled \"Packaging Technology for Rice to Maintain Freshness and Nutritional Value\" (RPACK) focuses on developing packaging materials that preserve the quality of rice grains, preventing deterioration and nutrient loss. By exploring innovative packaging solutions, this project aims to extend the shelf life of rice while ensuring that its nutritional value remains intact, benefiting both consumers and producers.",
+          "Dr. Anan Jirawattana",
+          "Maejo University"
+        ],
+        [
+          "PROJ025",
+          "Utilization of Agricultural Waste as Biodegradable Packaging Material",
+          "This research project focuses on the production of biodegradable packaging materials using agricultural waste, specifically rice husk, sugarcane leaves, and corn stalks. By transforming these byproducts into eco-friendly packaging solutions, the study aims to reduce environmental impact while promoting sustainability in the agricultural sector. The findings could contribute to innovative practices in waste management and packaging industries.",
+          "Dr. Anan Jirawattana",
+          "Maejo University"
+        ],
+        [
+          "PROJ002",
+          "MAP Packaging Technology for Fresh Longan to Extend Shelf Life and Maintain Quality",
+          "This research project focuses on developing Modified Atmosphere Packaging (MAP) technology specifically for fresh longan. The aim is to extend the shelf life of the fruit while minimizing losses during transportation and export. By optimizing packaging methods, the project seeks to preserve the quality of longan and enhance its marketability in international trade.",
+          "Dr. Anan Jirawattana",
+          "Maejo University"
+        ]
+      ],
+      "hit": true,
+      "precision_at_k": 1.0
+    },
+    {
+      "id": "Q05",
+      "question": "Who leads the NIR durian ripeness detection project?",
+      "hop_level": 1,
+      "ground_truth": [
+        "Dr. Weerachai Thongdee"
+      ],
+      "returned_top_k": [
+        [
+          "PROJ016",
+          "NIR Technology for Non-Destructive Durian Ripeness and Quality Assessment",
+          "This research project focuses on the development of a portable Near-Infrared (NIR) technology device that can assess the ripeness and quality of durians in the field without the need for cutting open the fruit. By employing non-destructive methods, the device aims to provide accurate evaluations, ensuring optimal harvest times and enhancing the overall quality of durians available in the market.",
+          "Dr. Weerachai Thongdee",
+          "Dr. Pannipa Sophon",
+          "Department of Agriculture",
+          "Khon Kaen University"
+        ],
+        [
+          "PROJ019",
+          "Durian Growth Monitoring System Using AI and Remote Sensing",
+          "The research project titled \"Durian Growth Monitoring System Using AI and Remote Sensing\" (DRAM) focuses on utilizing artificial intelligence and satellite imagery to monitor the growth, flowering, and fruit yield of durian trees. By integrating advanced technologies, this system aims to enhance the understanding of durian cultivation and optimize production strategies, potentially leading to improved agricultural practices in this key crop.",
+          "Dr. Weerachai Thongdee",
+          "Dr. Pannipa Sophon",
+          "Department of Agriculture",
+          "Khon Kaen University"
+        ],
+        [
+          "PROJ020",
+          "Grading Standards and Quality Certification for Durian Export to China",
+          "This research project focuses on developing grading standards for durian that meet China's import requirements and ensure a robust traceability system. By establishing these standards and quality certifications, the project aims to enhance the export potential of durian to China, which has a growing demand for this highly prized fruit. The initiative seeks to promote better quality control and compliance with international regulations, ultimately benefiting Thai durian producers and exporters.",
+          "Dr. Weerachai Thongdee",
+          "Department of Agriculture"
+        ]
+      ],
+      "hit": true,
+      "precision_at_k": 1.0
+    },
+    {
+      "id": "Q06",
+      "question": "What organization coordinates the automated longan grading project?",
+      "hop_level": 1,
+      "ground_truth": [
+        "Chiang Mai University"
+      ],
+      "returned_top_k": [
+        [
+          "PROJ001",
+          "Development of Automated Longan Grading System Using Machine Vision to Reduce Downgrading",
+          "The research project titled \"Development of Automated Longan Grading System Using Machine Vision to Reduce Downgrading\" focuses on enhancing the grading efficiency of longan fruit through the integration of machine vision and artificial intelligence technology. By automating the grading process, the project aims to minimize the losses associated with fruit downgrading, ultimately leading to improved quality control and increased profitability for producers. This innovative approach seeks to revolutionize the agricultural grading system, ensuring that only the best-quality longan reaches the market.",
+          "Dr. Somchai Wichitpong",
+          "Dr. Pannipa Sophon",
+          "Chiang Mai University",
+          "Khon Kaen University"
+        ],
+        [
+          "PROJ004",
+          "Study of Causes and Solutions to Reduce Longan Quality Downgrading in Supply Chain",
+          "This research project investigates the causes of quality downgrading of longan throughout the supply chain, from the orchard to the consumers. By examining various factors that contribute to this issue, the study aims to develop systematic solutions to minimize quality loss and enhance the overall value of longan in the market.",
+          "Dr. Somchai Wichitpong",
+          "Prof.Dr. Manop Sitthichot",
+          "Chiang Mai University",
+          "Kasetsart University"
+        ],
+        [
+          "PROJ006",
+          "GAP Standard Development and Traceability System for Export Longan",
+          "This research project focuses on the development of a specific Good Agricultural Practices (GAP) standard for longan intended for export, alongside a traceability system utilizing QR codes. The aim is to enhance the quality and safety of exported longan by implementing standardized practices and ensuring that consumers can easily trace the origins of the product. This initiative seeks to improve the marketability of Thai longan on the international stage while promoting sustainable agricultural practices.",
+          "Dr. Somchai Wichitpong",
+          "Chiang Mai University"
+        ]
+      ],
+      "hit": true,
+      "precision_at_k": 1.0
+    },
+    {
+      "id": "Q08",
+      "question": "What publication came out of the NIR durian ripeness project?",
+      "hop_level": 1,
+      "ground_truth": [
+        "NIR Spectroscopy for Non-Destructive Determination of Durian Ripeness Index"
+      ],
+      "returned_top_k": [
+        [
+          "PROJ016",
+          "NIR Technology for Non-Destructive Durian Ripeness and Quality Assessment",
+          "This research project focuses on the development of a portable Near-Infrared (NIR) technology device that can assess the ripeness and quality of durians in the field without the need for cutting open the fruit. By employing non-destructive methods, the device aims to provide accurate evaluations, ensuring optimal harvest times and enhancing the overall quality of durians available in the market.",
+          "Dr. Weerachai Thongdee",
+          "Dr. Pannipa Sophon",
+          "Department of Agriculture",
+          "Khon Kaen University"
+        ],
+        [
+          "PROJ019",
+          "Durian Growth Monitoring System Using AI and Remote Sensing",
+          "The research project titled \"Durian Growth Monitoring System Using AI and Remote Sensing\" (DRAM) focuses on utilizing artificial intelligence and satellite imagery to monitor the growth, flowering, and fruit yield of durian trees. By integrating advanced technologies, this system aims to enhance the understanding of durian cultivation and optimize production strategies, potentially leading to improved agricultural practices in this key crop.",
+          "Dr. Weerachai Thongdee",
+          "Dr. Pannipa Sophon",
+          "Department of Agriculture",
+          "Khon Kaen University"
+        ],
+        [
+          "PROJ018",
+          "Functional Health Products from Durian: Antioxidants and Prebiotics",
+          "This research project focuses on extracting bioactive compounds from both the flesh and rind of durian to develop functional health products. By investigating the antioxidant and prebiotic properties of these extracts, the study aims to enhance the nutritional value of food products while promoting overall health benefits. The findings could lead to innovative applications in functional foods that leverage the unique benefits of durian.",
+          "Asst.Prof.Dr. Chainarong Limpiyakorn",
+          "Dr. Orawan Meesuk",
+          "Kasetsart University"
+        ]
+      ],
+      "hit": false,
+      "precision_at_k": 0.0
+    }
+  ]
+}

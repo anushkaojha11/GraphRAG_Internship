@@ -1,0 +1,288 @@
+{
+  "run_name": "baseline",
+  "pipeline": "baseline",
+  "top_k": 3,
+  "n_questions": 18,
+  "overall_hit_rate": 0.2222222222222222,
+  "overall_precision": 0.2222222222222222,
+  "hit_rate_by_hop": {
+    "0": 0.5,
+    "1": 0.16666666666666666,
+    "2": 0.2,
+    "3": 0.0
+  },
+  "precision_by_hop": {
+    "0": 0.5,
+    "1": 0.16666666666666666,
+    "2": 0.2,
+    "3": 0.0
+  },
+  "detailed_results": [
+    {
+      "id": "Q01",
+      "question": "Find researchers who work on durian.",
+      "hop_level": 0,
+      "ground_truth": [
+        "Dr. Weerachai Thongdee",
+        "Dr. Surachai Buathong",
+        "Dr. Orawan Meesuk"
+      ],
+      "returned_top_k": [
+        [
+          "Dr. Weerachai Thongdee",
+          "durian,fruit physiology,quality"
+        ],
+        [
+          "Dr. Surachai Buathong",
+          "durian,Phytophthora,biocontrol"
+        ],
+        [
+          "Dr. Orawan Meesuk",
+          "food technology,functional food,durian"
+        ]
+      ],
+      "hit": true,
+      "precision_at_k": 1.0
+    },
+    {
+      "id": "Q02",
+      "question": "Find researchers who work on biocontrol agents.",
+      "hop_level": 0,
+      "ground_truth": [
+        "Dr. Thanaphol Rungroj",
+        "Dr. Surachai Buathong"
+      ],
+      "returned_top_k": [],
+      "hit": false,
+      "precision_at_k": 0.0
+    },
+    {
+      "id": "Q03",
+      "question": "Find researchers specializing in rice research.",
+      "hop_level": 0,
+      "ground_truth": [
+        "Assoc.Prof.Dr. Napaporn Suksomboon",
+        "Dr. Sunanta Intrasuk",
+        "Dr. Jittinun Pongsiri"
+      ],
+      "returned_top_k": [
+        [
+          "Assoc.Prof.Dr. Napaporn Suksomboon",
+          "rice,genetics,breeding"
+        ],
+        [
+          "Dr. Sunanta Intrasuk",
+          "seed science,glutinous rice,germplasm"
+        ],
+        [
+          "Dr. Jittinun Pongsiri",
+          "irrigation,water management,rice"
+        ]
+      ],
+      "hit": true,
+      "precision_at_k": 1.0
+    },
+    {
+      "id": "Q04",
+      "question": "Find projects related to packaging technology.",
+      "hop_level": 0,
+      "ground_truth": [
+        "MAP Packaging Technology for Fresh Longan to Extend Shelf Life and Maintain Quality",
+        "Packaging Technology for Rice to Maintain Freshness and Nutritional Value",
+        "Innovative Frozen Durian Packaging for China and ASEAN Markets",
+        "Utilization of Agricultural Waste as Biodegradable Packaging Material"
+      ],
+      "returned_top_k": [],
+      "hit": false,
+      "precision_at_k": 0.0
+    },
+    {
+      "id": "Q05",
+      "question": "Who leads the NIR durian ripeness detection project?",
+      "hop_level": 1,
+      "ground_truth": [
+        "Dr. Weerachai Thongdee"
+      ],
+      "returned_top_k": [],
+      "hit": false,
+      "precision_at_k": 0.0
+    },
+    {
+      "id": "Q06",
+      "question": "What organization coordinates the automated longan grading project?",
+      "hop_level": 1,
+      "ground_truth": [
+        "Chiang Mai University"
+      ],
+      "returned_top_k": [],
+      "hit": false,
+      "precision_at_k": 0.0
+    },
+    {
+      "id": "Q07",
+      "question": "What organization is Dr. Somchai Wichitpong affiliated with?",
+      "hop_level": 1,
+      "ground_truth": [
+        "Chiang Mai University"
+      ],
+      "returned_top_k": [
+        [
+          "Chiang Mai University"
+        ]
+      ],
+      "hit": true,
+      "precision_at_k": 1.0
+    },
+    {
+      "id": "Q08",
+      "question": "What publication came out of the NIR durian ripeness project?",
+      "hop_level": 1,
+      "ground_truth": [
+        "NIR Spectroscopy for Non-Destructive Determination of Durian Ripeness Index"
+      ],
+      "returned_top_k": [],
+      "hit": false,
+      "precision_at_k": 0.0
+    },
+    {
+      "id": "Q09",
+      "question": "Who invented the high-precision longan grading device patent?",
+      "hop_level": 1,
+      "ground_truth": [
+        "Dr. Somchai Wichitpong",
+        "Dr. Pannipa Sophon"
+      ],
+      "returned_top_k": [],
+      "hit": false,
+      "precision_at_k": 0.0
+    },
+    {
+      "id": "Q10",
+      "question": "What is Dr. Somchai Wichitpong's professional email address?",
+      "hop_level": 1,
+      "ground_truth": [
+        "somchai@cmu.ac.th"
+      ],
+      "returned_top_k": [
+        [
+          "Dr. Somchai Wichitpong",
+          "Dr. Somchai Wichitpong is a researcher specializing in the postharvest technology and grading standards of longan, a tropical fruit. His work focuses on improving practices related to the harvesting and processing of longan to enhance quality and ensure optimal market value. Through his research, he aims to contribute to the advancement of agricultural efficiency and sustainability in the longan industry."
+        ]
+      ],
+      "hit": false,
+      "precision_at_k": 0.0
+    },
+    {
+      "id": "Q11",
+      "question": "What organizations are the researchers on the longan grading project affiliated with?",
+      "hop_level": 2,
+      "ground_truth": [
+        "Chiang Mai University",
+        "Khon Kaen University"
+      ],
+      "returned_top_k": [
+        [
+          "Chiang Mai University"
+        ],
+        [
+          "Khon Kaen University"
+        ]
+      ],
+      "hit": true,
+      "precision_at_k": 1.0
+    },
+    {
+      "id": "Q12",
+      "question": "What is the organizational affiliation of the author of the longan Machine Vision grading publication?",
+      "hop_level": 2,
+      "ground_truth": [
+        "Chiang Mai University",
+        "Khon Kaen University"
+      ],
+      "returned_top_k": [],
+      "hit": false,
+      "precision_at_k": 0.0
+    },
+    {
+      "id": "Q13",
+      "question": "What fund supports the longan grading project that Dr. Somchai leads?",
+      "hop_level": 2,
+      "ground_truth": [
+        "ARDA Economic Crop Research Grant"
+      ],
+      "returned_top_k": [
+        [
+          "Development of Automated Longan Grading System Using Machine Vision to Reduce Downgrading",
+          "longan,grading,machine vision,AI,downgrade"
+        ]
+      ],
+      "hit": false,
+      "precision_at_k": 0.0
+    },
+    {
+      "id": "Q14",
+      "question": "What facility does Dr. Anan Jirawattana's longan packaging project use?",
+      "hop_level": 2,
+      "ground_truth": [
+        "Food Packaging Technology Laboratory"
+      ],
+      "returned_top_k": [
+        [
+          "MAP Packaging Technology for Fresh Longan to Extend Shelf Life and Maintain Quality",
+          "This research project focuses on developing Modified Atmosphere Packaging (MAP) technology specifically for fresh longan. The aim is to extend the shelf life of the fruit while minimizing losses during transportation and export. By optimizing packaging methods, the project seeks to preserve the quality of longan and enhance its marketability in international trade."
+        ]
+      ],
+      "hit": false,
+      "precision_at_k": 0.0
+    },
+    {
+      "id": "Q15",
+      "question": "What fund supports the main project that the durian Phytophthora biocontrol project is a sub-project of?",
+      "hop_level": 2,
+      "ground_truth": [
+        "Export Standard Promotion Fund"
+      ],
+      "returned_top_k": [],
+      "hit": false,
+      "precision_at_k": 0.0
+    },
+    {
+      "id": "Q16",
+      "question": "What organizations are Dr. Somchai Wichitpong's project collaborators affiliated with?",
+      "hop_level": 3,
+      "ground_truth": [
+        "Khon Kaen University",
+        "Kasetsart University"
+      ],
+      "returned_top_k": [],
+      "hit": false,
+      "precision_at_k": 0.0
+    },
+    {
+      "id": "Q17",
+      "question": "What fund supports the project led by Dr. Somchai Wichitpong's direct collaborator?",
+      "hop_level": 3,
+      "ground_truth": [
+        "PMUC Fruit Value Chain Fund"
+      ],
+      "returned_top_k": [],
+      "hit": false,
+      "precision_at_k": 0.0
+    },
+    {
+      "id": "Q18",
+      "question": "What publications have Dr. Weerachai Thongdee's project collaborators authored?",
+      "hop_level": 3,
+      "ground_truth": [
+        "Efficiency of Machine Vision System in Longan Grading: A Comparative Study"
+      ],
+      "returned_top_k": [
+        [
+          "NIR Spectroscopy for Non-Destructive Determination of Durian Ripeness Index"
+        ]
+      ],
+      "hit": false,
+      "precision_at_k": 0.0
+    }
+  ]
+}

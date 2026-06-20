@@ -1,0 +1,329 @@
+{
+  "run_name": "template1_subset",
+  "pipeline": "template1",
+  "top_k": 3,
+  "n_questions": 8,
+  "overall_hit_rate": 1.0,
+  "overall_precision": 0.6666666666666666,
+  "hit_rate_by_hop": {
+    "0": 1.0,
+    "1": 1.0,
+    "2": 1.0,
+    "3": 1.0
+  },
+  "precision_by_hop": {
+    "0": 0.8888888888888888,
+    "1": 0.3333333333333333,
+    "2": 0.8333333333333333,
+    "3": 0.3333333333333333
+  },
+  "detailed_results": [
+    {
+      "id": "Q01",
+      "question": "Find researchers who work on durian.",
+      "hop_level": 0,
+      "ground_truth": [
+        "Dr. Weerachai Thongdee",
+        "Dr. Surachai Buathong",
+        "Dr. Orawan Meesuk"
+      ],
+      "returned_top_k": [
+        [
+          "PERS003",
+          "Dr. Weerachai Thongdee",
+          "durian,fruit physiology,quality",
+          "Department of Agriculture",
+          "NIR Technology for Non-Destructive Durian Ripeness and Quality Assessment",
+          "Durian Growth Monitoring System Using AI and Remote Sensing",
+          "Grading Standards and Quality Certification for Durian Export to China"
+        ],
+        [
+          "PERS014",
+          "Dr. Surachai Buathong",
+          "durian,Phytophthora,biocontrol",
+          "Department of Agriculture",
+          "Prevention and Management of Phytophthora Root Rot in Durian Using Biocontrol Agents"
+        ],
+        [
+          "PERS015",
+          "Dr. Orawan Meesuk",
+          "food technology,functional food,durian",
+          "Kasetsart University",
+          "Functional Health Products from Durian: Antioxidants and Prebiotics"
+        ]
+      ],
+      "hit": true,
+      "precision_at_k": 1.0
+    },
+    {
+      "id": "Q02",
+      "question": "Find researchers who work on biocontrol agents.",
+      "hop_level": 0,
+      "ground_truth": [
+        "Dr. Thanaphol Rungroj",
+        "Dr. Surachai Buathong"
+      ],
+      "returned_top_k": [
+        [
+          "PERS007",
+          "Dr. Thanaphol Rungroj",
+          "plant disease,biocontrol,IPM",
+          "Department of Agriculture",
+          "Biocontrol Agents for Longan Postharvest Disease and Storage Extension",
+          "Rice Blast Management Using Bioagents and Early Warning System",
+          "Prevention and Management of Phytophthora Root Rot in Durian Using Biocontrol Agents"
+        ],
+        [
+          "PERS014",
+          "Dr. Surachai Buathong",
+          "durian,Phytophthora,biocontrol",
+          "Department of Agriculture",
+          "Prevention and Management of Phytophthora Root Rot in Durian Using Biocontrol Agents"
+        ],
+        [
+          "PERS006",
+          "Assoc.Prof.Dr. Kanda Pimthong",
+          "soil,fertilizer,organic farming",
+          "Kasetsart University",
+          "Increasing Second-Crop Rice Yield in Central Thailand Through Precision Nutrient Management",
+          "Organic Mango Farming and Value Chain to Premium Markets",
+          "Biofertilizer Innovation from Soil Microorganisms to Reduce Chemical Fertilizer in Maize"
+        ]
+      ],
+      "hit": true,
+      "precision_at_k": 0.667
+    },
+    {
+      "id": "Q03",
+      "question": "Find researchers specializing in rice research.",
+      "hop_level": 0,
+      "ground_truth": [
+        "Assoc.Prof.Dr. Napaporn Suksomboon",
+        "Dr. Sunanta Intrasuk",
+        "Dr. Jittinun Pongsiri"
+      ],
+      "returned_top_k": [
+        [
+          "PERS009",
+          "Dr. Sunanta Intrasuk",
+          "seed science,glutinous rice,germplasm",
+          "Khon Kaen University",
+          "Breeding of Drought-Tolerant Glutinous Rice RD6 with Improved Cooking Quality"
+        ],
+        [
+          "PERS012",
+          "Dr. Jittinun Pongsiri",
+          "irrigation,water management,rice",
+          "Kasetsart University",
+          "Smart Precision Irrigation System to Reduce Water Use in Rice Paddies",
+          "Flood Early Warning System for Orchard Management in Risk Areas"
+        ],
+        [
+          "PERS002",
+          "Assoc.Prof.Dr. Napaporn Suksomboon",
+          "rice,genetics,breeding",
+          "Khon Kaen University",
+          "Breeding of Drought-Tolerant Glutinous Rice RD6 with Improved Cooking Quality",
+          "Cultivation of Blue-Green Algae as Biofertilizer in Rice Paddy"
+        ]
+      ],
+      "hit": true,
+      "precision_at_k": 1.0
+    },
+    {
+      "id": "Q07",
+      "question": "What organization is Dr. Somchai Wichitpong affiliated with?",
+      "hop_level": 1,
+      "ground_truth": [
+        "Chiang Mai University"
+      ],
+      "returned_top_k": [
+        [
+          "PERS001",
+          "Dr. Somchai Wichitpong",
+          "longan,postharvest,grading",
+          "Chiang Mai University",
+          "Development of Automated Longan Grading System Using Machine Vision to Reduce Downgrading",
+          "Study of Causes and Solutions to Reduce Longan Quality Downgrading in Supply Chain",
+          "GAP Standard Development and Traceability System for Export Longan"
+        ],
+        [
+          "PERS006",
+          "Assoc.Prof.Dr. Kanda Pimthong",
+          "soil,fertilizer,organic farming",
+          "Kasetsart University",
+          "Increasing Second-Crop Rice Yield in Central Thailand Through Precision Nutrient Management",
+          "Organic Mango Farming and Value Chain to Premium Markets",
+          "Biofertilizer Innovation from Soil Microorganisms to Reduce Chemical Fertilizer in Maize"
+        ],
+        [
+          "PERS007",
+          "Dr. Thanaphol Rungroj",
+          "plant disease,biocontrol,IPM",
+          "Department of Agriculture",
+          "Biocontrol Agents for Longan Postharvest Disease and Storage Extension",
+          "Rice Blast Management Using Bioagents and Early Warning System",
+          "Prevention and Management of Phytophthora Root Rot in Durian Using Biocontrol Agents"
+        ]
+      ],
+      "hit": true,
+      "precision_at_k": 0.333
+    },
+    {
+      "id": "Q09",
+      "question": "Who invented the high-precision longan grading device patent?",
+      "hop_level": 1,
+      "ground_truth": [
+        "Dr. Somchai Wichitpong",
+        "Dr. Pannipa Sophon"
+      ],
+      "returned_top_k": [
+        [
+          "PERS001",
+          "Dr. Somchai Wichitpong",
+          "longan,postharvest,grading",
+          "Chiang Mai University",
+          "Development of Automated Longan Grading System Using Machine Vision to Reduce Downgrading",
+          "Study of Causes and Solutions to Reduce Longan Quality Downgrading in Supply Chain",
+          "GAP Standard Development and Traceability System for Export Longan"
+        ],
+        [
+          "PERS013",
+          "Asst.Prof.Dr. Ladawan Jaidee",
+          "longan processing,community enterprise,value added",
+          "Chiang Mai University",
+          "Development of High-Value Processed Longan Products for Premium Market",
+          "Mushroom Cultivation Innovation for Community Enterprises in Northern Thailand"
+        ],
+        [
+          "PERS009",
+          "Dr. Sunanta Intrasuk",
+          "seed science,glutinous rice,germplasm",
+          "Khon Kaen University",
+          "Breeding of Drought-Tolerant Glutinous Rice RD6 with Improved Cooking Quality"
+        ]
+      ],
+      "hit": true,
+      "precision_at_k": 0.333
+    },
+    {
+      "id": "Q11",
+      "question": "What organizations are the researchers on the longan grading project affiliated with?",
+      "hop_level": 2,
+      "ground_truth": [
+        "Chiang Mai University",
+        "Khon Kaen University"
+      ],
+      "returned_top_k": [
+        [
+          "PERS001",
+          "Dr. Somchai Wichitpong",
+          "longan,postharvest,grading",
+          "Chiang Mai University",
+          "Development of Automated Longan Grading System Using Machine Vision to Reduce Downgrading",
+          "Study of Causes and Solutions to Reduce Longan Quality Downgrading in Supply Chain",
+          "GAP Standard Development and Traceability System for Export Longan"
+        ],
+        [
+          "PERS013",
+          "Asst.Prof.Dr. Ladawan Jaidee",
+          "longan processing,community enterprise,value added",
+          "Chiang Mai University",
+          "Development of High-Value Processed Longan Products for Premium Market",
+          "Mushroom Cultivation Innovation for Community Enterprises in Northern Thailand"
+        ],
+        [
+          "PERS003",
+          "Dr. Weerachai Thongdee",
+          "durian,fruit physiology,quality",
+          "Department of Agriculture",
+          "NIR Technology for Non-Destructive Durian Ripeness and Quality Assessment",
+          "Durian Growth Monitoring System Using AI and Remote Sensing",
+          "Grading Standards and Quality Certification for Durian Export to China"
+        ]
+      ],
+      "hit": true,
+      "precision_at_k": 0.667
+    },
+    {
+      "id": "Q12",
+      "question": "What is the organizational affiliation of the author of the longan Machine Vision grading publication?",
+      "hop_level": 2,
+      "ground_truth": [
+        "Chiang Mai University",
+        "Khon Kaen University"
+      ],
+      "returned_top_k": [
+        [
+          "PERS001",
+          "Dr. Somchai Wichitpong",
+          "longan,postharvest,grading",
+          "Chiang Mai University",
+          "Development of Automated Longan Grading System Using Machine Vision to Reduce Downgrading",
+          "Study of Causes and Solutions to Reduce Longan Quality Downgrading in Supply Chain",
+          "GAP Standard Development and Traceability System for Export Longan"
+        ],
+        [
+          "PERS011",
+          "Dr. Pannipa Sophon",
+          "machine learning,computer vision,crop detection",
+          "Khon Kaen University",
+          "Development of Automated Longan Grading System Using Machine Vision to Reduce Downgrading",
+          "Drone Survey and Rice Plant Health Analysis Using NDVI",
+          "NIR Technology for Non-Destructive Durian Ripeness and Quality Assessment",
+          "Durian Growth Monitoring System Using AI and Remote Sensing"
+        ],
+        [
+          "PERS013",
+          "Asst.Prof.Dr. Ladawan Jaidee",
+          "longan processing,community enterprise,value added",
+          "Chiang Mai University",
+          "Development of High-Value Processed Longan Products for Premium Market",
+          "Mushroom Cultivation Innovation for Community Enterprises in Northern Thailand"
+        ]
+      ],
+      "hit": true,
+      "precision_at_k": 1.0
+    },
+    {
+      "id": "Q16",
+      "question": "What organizations are Dr. Somchai Wichitpong's project collaborators affiliated with?",
+      "hop_level": 3,
+      "ground_truth": [
+        "Khon Kaen University",
+        "Kasetsart University"
+      ],
+      "returned_top_k": [
+        [
+          "PERS001",
+          "Dr. Somchai Wichitpong",
+          "longan,postharvest,grading",
+          "Chiang Mai University",
+          "Development of Automated Longan Grading System Using Machine Vision to Reduce Downgrading",
+          "Study of Causes and Solutions to Reduce Longan Quality Downgrading in Supply Chain",
+          "GAP Standard Development and Traceability System for Export Longan"
+        ],
+        [
+          "PERS006",
+          "Assoc.Prof.Dr. Kanda Pimthong",
+          "soil,fertilizer,organic farming",
+          "Kasetsart University",
+          "Increasing Second-Crop Rice Yield in Central Thailand Through Precision Nutrient Management",
+          "Organic Mango Farming and Value Chain to Premium Markets",
+          "Biofertilizer Innovation from Soil Microorganisms to Reduce Chemical Fertilizer in Maize"
+        ],
+        [
+          "PERS007",
+          "Dr. Thanaphol Rungroj",
+          "plant disease,biocontrol,IPM",
+          "Department of Agriculture",
+          "Biocontrol Agents for Longan Postharvest Disease and Storage Extension",
+          "Rice Blast Management Using Bioagents and Early Warning System",
+          "Prevention and Management of Phytophthora Root Rot in Durian Using Biocontrol Agents"
+        ]
+      ],
+      "hit": true,
+      "precision_at_k": 0.333
+    }
+  ]
+}

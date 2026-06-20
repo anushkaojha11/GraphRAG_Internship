@@ -1,0 +1,61 @@
+{
+  "run_name": "baseline_expanded",
+  "pipeline": "baseline_expanded",
+  "top_k": 3,
+  "n_questions": 2,
+  "overall_hit_rate": 1.0,
+  "overall_precision": 1.0,
+  "hit_rate_by_hop": {
+    "0": 1.0
+  },
+  "precision_by_hop": {
+    "0": 1.0
+  },
+  "detailed_results": [
+    {
+      "id": "Q02",
+      "question": "Find researchers who work on biocontrol agents.",
+      "hop_level": 0,
+      "ground_truth": [
+        "Dr. Thanaphol Rungroj",
+        "Dr. Surachai Buathong"
+      ],
+      "returned_top_k": [
+        [
+          "Dr. Thanaphol Rungroj",
+          "plant disease,biocontrol,IPM"
+        ],
+        [
+          "Dr. Surachai Buathong",
+          "durian,Phytophthora,biocontrol"
+        ]
+      ],
+      "hit": true,
+      "precision_at_k": 1.0
+    },
+    {
+      "id": "Q04",
+      "question": "Find projects related to packaging technology.",
+      "hop_level": 0,
+      "ground_truth": [
+        "MAP Packaging Technology for Fresh Longan to Extend Shelf Life and Maintain Quality",
+        "Packaging Technology for Rice to Maintain Freshness and Nutritional Value",
+        "Innovative Frozen Durian Packaging for China and ASEAN Markets",
+        "Utilization of Agricultural Waste as Biodegradable Packaging Material"
+      ],
+      "returned_top_k": [
+        [
+          "MAP Packaging Technology for Fresh Longan to Extend Shelf Life and Maintain Quality"
+        ],
+        [
+          "Packaging Technology for Rice to Maintain Freshness and Nutritional Value"
+        ],
+        [
+          "Utilization of Agricultural Waste as Biodegradable Packaging Material"
+        ]
+      ],
+      "hit": true,
+      "precision_at_k": 1.0
+    }
+  ]
+}
