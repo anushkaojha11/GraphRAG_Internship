@@ -1,0 +1,303 @@
+{
+  "_meta": {
+    "purpose": "Hop-categorized answer key for retrieval-accuracy evaluation of the Expert Finder GraphRAG pipeline.",
+    "source": "Evaluation final 20-query set updated from Evaluation (2)(1).docx",
+    "hop_definition": "Hop count follows the professor's competency-question/entity-path definition used in the evaluation table.",
+    "distribution": {
+      "1-hop": 3,
+      "2-hop": 6,
+      "3-hop": 6,
+      "4-hop": 5,
+      "total": 20
+    }
+  },
+  "questions": [
+    {
+      "id": "CQ01",
+      "hop_level": 1,
+      "question": "Which main projects have sub-projects related to durian research?",
+      "relationship_tested": "cfProj",
+      "cypher_hint": "MATCH (sub:cfProj)-[:cfProj_Proj]->(main:cfProj)\nWHERE toLower(sub.cfKeyw) CONTAINS 'durian'\n   OR toLower(sub.cfTitleEN) CONTAINS 'durian'\nRETURN DISTINCT main.cfTitleEN AS mainProject",
+      "ground_truth": [
+        "Grading Standards and Quality Certification for Durian Export to China"
+      ],
+      "notes": "Project-only lookup under the professor's entity-path hop definition."
+    },
+    {
+      "id": "CQ02",
+      "hop_level": 1,
+      "question": "Find researchers specialized in postharvest technology or smart farming.",
+      "relationship_tested": "Expert",
+      "cypher_hint": "MATCH (p:cfPers)\nWHERE toLower(coalesce(p.cfKeyw,'')) CONTAINS 'postharvest'\n   OR toLower(coalesce(p.cfResInt,'')) CONTAINS 'postharvest'\n   OR toLower(coalesce(p.cfKeyw,'')) CONTAINS 'smart farming'\n   OR toLower(coalesce(p.cfResInt,'')) CONTAINS 'smart farming'\nRETURN DISTINCT p.cfPersNameEN",
+      "ground_truth": [
+        "Dr. Somchai Wichitpong",
+        "Asst.Prof.Dr. Prapassorn Muangkaew"
+      ],
+      "notes": "Expert lookup using researcher attributes."
+    },
+    {
+      "id": "CQ03",
+      "hop_level": 1,
+      "question": "Find researchers specialized in postharvest technology or smart farming.",
+      "relationship_tested": "Expert (keyword/resInt) cfPers",
+      "cypher_hint": "MATCH (p:cfPers)\nWHERE toLower(coalesce(p.cfKeyw,'')) CONTAINS 'postharvest'\n   OR toLower(coalesce(p.cfResInt,'')) CONTAINS 'postharvest'\n   OR toLower(coalesce(p.cfKeyw,'')) CONTAINS 'smart farming'\n   OR toLower(coalesce(p.cfResInt,'')) CONTAINS 'smart farming'\nRETURN DISTINCT\n    p.cfPersNameEN AS researcher,\n    p.cfKeyw AS keywords,\n    p.cfResInt AS researchInterest\nORDER BY researcher",
+      "ground_truth": [
+        "Asst.Prof.Dr. Prapassorn Muangkaew",
+        "Dr. Somchai Wichitpong"
+      ],
+      "notes": "Expert lookup using cfKeyw and cfResInt."
+    },
+    {
+      "id": "CQ04",
+      "hop_level": 2,
+      "question": "Who are the researchers working on longan research projects?",
+      "relationship_tested": "cfPers <- cfProj",
+      "cypher_hint": "MATCH (proj:cfProj)-[:cfProj_Pers]->(p:cfPers)\nWHERE toLower(coalesce(proj.cfTitleEN,'')) CONTAINS 'longan'\n   OR toLower(coalesce(proj.cfKeyw,'')) CONTAINS 'longan'\nRETURN DISTINCT\n    p.cfPersNameEN AS researcher,\n    proj.cfTitleEN AS project\nORDER BY researcher",
+      "ground_truth": [
+        "Asst.Prof.Dr. Chainarong Limpiyakorn",
+        "Asst.Prof.Dr. Kittipong Wongwichit",
+        "Asst.Prof.Dr. Ladawan Jaidee",
+        "Asst.Prof.Dr. Prapassorn Muangkaew",
+        "Dr. Anan Jirawattana",
+        "Dr. Nongnuch Suksomboon",
+        "Dr. Pannipa Sophon",
+        "Dr. Somchai Wichitpong",
+        "Dr. Thanaphol Rungroj",
+        "Prof.Dr. Manop Sitthichot"
+      ],
+      "notes": "Project-to-expert retrieval."
+    },
+    {
+      "id": "CQ05",
+      "hop_level": 2,
+      "question": "Which researchers hold patents?",
+      "relationship_tested": "Expert -> Patent",
+      "cypher_hint": "MATCH (p:cfPers)-[:cfPers_ResPat]->(pat:cfResPat)\nRETURN DISTINCT p.cfPersNameEN AS researcher",
+      "ground_truth": [
+        "Dr. Somchai Wichitpong",
+        "Dr. Weerachai Thongdee",
+        "Dr. Anan Jirawattana",
+        "Dr. Pannipa Sophon"
+      ],
+      "notes": "Expert-to-patent relationship."
+    },
+    {
+      "id": "CQ06",
+      "hop_level": 2,
+      "question": "What publications are related to AI-based longan grading projects?",
+      "relationship_tested": "cfProj -> cfResPubl",
+      "cypher_hint": "MATCH (proj:cfProj)-[:cfProj_ResPubl]->(pub:cfResPubl)\nWHERE toLower(coalesce(proj.cfKeyw,'')) CONTAINS 'longan'\n  AND (\n       toLower(coalesce(proj.cfKeyw,'')) CONTAINS 'ai'\n    OR toLower(coalesce(proj.cfKeyw,'')) CONTAINS 'machine vision'\n    OR toLower(coalesce(proj.cfTitleEN,'')) CONTAINS 'grading'\n  )\nRETURN DISTINCT pub.cfTitleEN AS publication",
+      "ground_truth": [
+        "Efficiency of Machine Vision System in Longan Grading: A Comparative Study",
+        "Machine Vision Grading vs Expert Panel: Benchmarking Longan Quality Assessment"
+      ],
+      "notes": "Changed cfTitle to cfTitleEN to match English pipeline output. Added PUB021 which also comes from PROJ001 (longan+machine vision+grading)."
+    },
+    {
+      "id": "CQ07",
+      "hop_level": 2,
+      "question": "Which patents are related to longan or durian projects?",
+      "relationship_tested": "cfProj -> cfResPat",
+      "cypher_hint": "MATCH (proj:cfProj)-[:cfProj_ResPat]->(pat:cfResPat)\nWHERE toLower(coalesce(proj.cfKeyw,'')) CONTAINS 'longan'\n   OR toLower(coalesce(proj.cfKeyw,'')) CONTAINS 'durian'\n   OR toLower(coalesce(proj.cfTitleEN,'')) CONTAINS 'longan'\n   OR toLower(coalesce(proj.cfTitleEN,'')) CONTAINS 'durian'\nRETURN DISTINCT pat.cfTitleEN AS patent",
+      "ground_truth": [
+        "High-Precision Longan Grading Device Using Machine Vision System",
+        "Non-Destructive Durian Ripeness Detection System Using Portable NIR Sensor"
+      ],
+      "notes": "Changed cfTitle to cfTitleEN to match English pipeline output."
+    },
+    {
+      "id": "CQ08",
+      "hop_level": 2,
+      "question": "Which researchers have both a patent and a publication related to postharvest technology?",
+      "relationship_tested": "Expert -> {Publication, Patent}",
+      "cypher_hint": "MATCH (p:cfPers)-[:cfPers_ResPubl]->(pub)\nMATCH (p)-[:cfPers_ResPat]->(pat)\nRETURN DISTINCT p.cfPersNameEN",
+      "ground_truth": [
+        "Dr. Somchai Wichitpong",
+        "Dr. Weerachai Thongdee",
+        "Dr. Anan Jirawattana",
+        "Dr. Pannipa Sophon"
+      ],
+      "notes": "Expert must have both publication and patent relationships."
+    },
+    {
+      "id": "CQ09",
+      "hop_level": 2,
+      "question": "Which facilities are associated with research projects?",
+      "relationship_tested": "Project -> Facility",
+      "cypher_hint": "MATCH (proj:cfProj)-[:cfProj_Facil]->(fac:cfFacil)\nRETURN DISTINCT fac.cfNameEN AS facility\nORDER BY facility",
+      "ground_truth": [
+        "Eastern Thailand Durian Experimental Field",
+        "Food Packaging Technology Laboratory",
+        "Longan Quality Standards Laboratory",
+        "Smart Greenhouse Controlled Environment",
+        "Thai Rice Quality Testing Center"
+      ],
+      "notes": "Project-to-facility relationship."
+    },
+    {
+      "id": "CQ10",
+      "hop_level": 3,
+      "question": "Which organizations are involved in projects related to AI-based fruit grading through their affiliated researchers?",
+      "relationship_tested": "Project -> Expert -> Organization",
+      "cypher_hint": "MATCH (org:cfOrgUnit)<-[:cfPers_OrgUnit]-(p:cfPers)<-[:cfProj_Pers]-(proj:cfProj)\nWHERE toLower(coalesce(proj.cfKeyw,'')) CONTAINS 'ai'\n   OR toLower(coalesce(proj.cfKeyw,'')) CONTAINS 'machine vision'\n   OR toLower(coalesce(proj.cfTitleEN,'')) CONTAINS 'grading'\nRETURN DISTINCT org.cfNameEN AS organization",
+      "ground_truth": [
+        "Department of Agriculture",
+        "Kasetsart University",
+        "Maejo University",
+        "Chiang Mai University",
+        "Khon Kaen University"
+      ],
+      "notes": "Organizations reached through affiliated researchers on AI/grading projects."
+    },
+    {
+      "id": "CQ11",
+      "hop_level": 3,
+      "question": "Find researchers who lead projects on longan or durian that have received funding and produced at least one publication.",
+      "relationship_tested": "Expert -> Project -> {Fund, Publication}",
+      "cypher_hint": "MATCH (proj:cfProj)-[:cfProj_Pers {cfClassId:'ProjectLeader'}]->(p:cfPers)\nMATCH (proj)-[:cfProj_Fund]->(f:cfFund)\nMATCH (proj)-[:cfProj_ResPubl]->(pub:cfResPubl)\nWHERE toLower(coalesce(proj.cfKeyw,'')) CONTAINS 'longan'\n   OR toLower(coalesce(proj.cfKeyw,'')) CONTAINS 'durian'\nRETURN DISTINCT p.cfPersNameEN AS researcher",
+      "ground_truth": [
+        "Dr. Somchai Wichitpong",
+        "Dr. Surachai Buathong",
+        "Dr. Weerachai Thongdee",
+        "Dr. Anan Jirawattana"
+      ],
+      "notes": "Project must be led by researcher, have funding, and have project-linked publication."
+    },
+    {
+      "id": "CQ12",
+      "hop_level": 3,
+      "question": "Which funding sources support projects associated with Chiang Mai University?",
+      "relationship_tested": "Project -> Organization + Project -> Fund",
+      "cypher_hint": "MATCH (proj:cfProj)-[:cfProj_OrgUnit]->(org:cfOrgUnit)\nMATCH (proj)-[:cfProj_Fund]->(fund:cfFund)\nWHERE org.cfNameEN = 'Chiang Mai University'\nRETURN DISTINCT fund.cfNameEN AS fund",
+      "ground_truth": [
+        "ARDA Economic Crop Research Grant",
+        "PMUC Fruit Value Chain Fund",
+        "ARDA Precision Agriculture Grant",
+        "TSRI Community Enterprise Development Fund"
+      ],
+      "notes": "Uses project organization and funding source. WARNING: verify this ground truth by running the Cypher hint directly in Neo4j Browser against the loaded v6 graph -- ARDA Precision Agriculture Grant and TSRI links to CMU-coordinated projects were not confirmed in the schema file."
+    },
+    {
+      "id": "CQ13",
+      "hop_level": 3,
+      "question": "Which projects are led by researchers who have both patents and publications?",
+      "relationship_tested": "Patent -> Expert -> Project + Publication -> Expert",
+      "cypher_hint": "MATCH (p:cfPers)-[:cfPers_ResPat]->(:cfResPat)\nMATCH (p)-[:cfPers_ResPubl]->(:cfResPubl)\nMATCH (p)<-[:cfProj_Pers {cfClassId:'ProjectLeader'}]-(proj:cfProj)\nRETURN DISTINCT proj.cfTitleEN AS project",
+      "ground_truth": [
+        "Development of Automated Longan Grading System Using Machine Vision to Reduce Downgrading",
+        "Study of Causes and Solutions to Reduce Longan Quality Downgrading in Supply Chain",
+        "NIR Technology for Non-Destructive Durian Ripeness and Quality Assessment",
+        "Grading Standards and Quality Certification for Durian Export to China",
+        "MAP Packaging Technology for Fresh Longan to Extend Shelf Life and Maintain Quality",
+        "Packaging Technology for Rice to Maintain Freshness and Nutritional Value",
+        "Innovative Frozen Durian Packaging for China and ASEAN Markets",
+        "Smart Cold Chain for Export Longan with IoT Monitoring",
+        "Development of Biocoating for Fresh Longan Postharvest Extension",
+        "Drone Survey and Rice Plant Health Analysis Using NDVI",
+        "Durian Growth Monitoring System Using AI and Remote Sensing",
+        "AI-Based Longan Disease and Pest Diagnosis from Smartphone Images"
+      ],
+      "notes": "Project leaders must have both patent and publication relationships."
+    },
+    {
+      "id": "CQ14",
+      "hop_level": 3,
+      "question": "Find researchers who have published papers related to packaging or shelf life, including publication year.",
+      "relationship_tested": "Expert -> Project -> Publication",
+      "cypher_hint": "MATCH (p:cfPers)<-[:cfProj_Pers]-(proj:cfProj)-[:cfProj_ResPubl]->(pub:cfResPubl)\nWHERE toLower(coalesce(pub.cfTitleEN,'')) CONTAINS 'packaging'\n   OR toLower(coalesce(pub.cfTitleEN,'')) CONTAINS 'shelf life'\n   OR toLower(coalesce(pub.cfTitle,'')) CONTAINS 'packaging'\n   OR toLower(coalesce(pub.cfTitle,'')) CONTAINS 'shelf life'\n   OR toLower(coalesce(proj.cfKeyw,'')) CONTAINS 'packaging'\n   OR toLower(coalesce(proj.cfKeyw,'')) CONTAINS 'shelf life'\nRETURN DISTINCT\n    p.cfPersNameEN AS researcher,\n    proj.cfTitleEN AS project,\n    pub.cfTitleEN AS publication,\n    pub.cfResPublDate AS publicationYear\nORDER BY researcher",
+      "ground_truth": [
+        "Asst.Prof.Dr. Chainarong Limpiyakorn",
+        "Dr. Anan Jirawattana"
+      ],
+      "notes": "Duplicate researchers removed from ground truth."
+    },
+    {
+      "id": "CQ15",
+      "hop_level": 4,
+      "question": "Which projects use facilities and involve researchers who have authored publications?",
+      "relationship_tested": "Publication -> Expert -> Project -> Facility",
+      "cypher_hint": "MATCH (pub:cfResPubl)<-[:cfPers_ResPubl]-(p:cfPers)<-[:cfProj_Pers]-(proj:cfProj)-[:cfProj_Facil]->(fac:cfFacil)\nRETURN DISTINCT proj.cfTitleEN AS project",
+      "ground_truth": [
+        "Development of Automated Longan Grading System Using Machine Vision to Reduce Downgrading",
+        "Study of Causes and Solutions to Reduce Longan Quality Downgrading in Supply Chain",
+        "Precision Longan Orchard Management Innovation Using Sensors and IoT",
+        "Smart Farm: AI-IoT Intelligent Greenhouse for Safe Vegetable Production",
+        "Breeding of Drought-Tolerant Glutinous Rice RD6 with Improved Cooking Quality",
+        "Standards and Traceability System for Thai Jasmine Rice in Export Markets",
+        "MAP Packaging Technology for Fresh Longan to Extend Shelf Life and Maintain Quality",
+        "Packaging Technology for Rice to Maintain Freshness and Nutritional Value",
+        "Prevention and Management of Phytophthora Root Rot in Durian Using Biocontrol Agents",
+        "Grading Standards and Quality Certification for Durian Export to China"
+      ],
+      "notes": "Project must use a facility and involve a researcher who authored a publication."
+    },
+    {
+      "id": "CQ16",
+      "hop_level": 3,
+      "question": "Which researchers have received funding from NRCT or NSTDA, and what projects are funded?",
+      "relationship_tested": "Expert -> Project -> Fund",
+      "cypher_hint": "MATCH (p:cfPers)<-[:cfProj_Pers]-(proj:cfProj)-[:cfProj_Fund]->(fund:cfFund)\nWHERE toLower(coalesce(fund.cfNameEN,'')) CONTAINS 'nrct'\n   OR toLower(coalesce(fund.cfNameEN,'')) CONTAINS 'nstda'\n   OR toLower(coalesce(fund.cfName,'')) CONTAINS 'วช'\n   OR toLower(coalesce(fund.cfName,'')) CONTAINS 'nstda'\nRETURN DISTINCT\n    p.cfPersNameEN AS researcher,\n    proj.cfTitleEN AS project,\n    fund.cfNameEN AS fundingSource\nORDER BY researcher",
+      "ground_truth": [
+        "Assoc.Prof.Dr. Kanda Pimthong",
+        "Dr. Anan Jirawattana",
+        "Dr. Thanaphol Rungroj"
+      ],
+      "notes": "Fund filtered by NRCT/NSTDA names."
+    },
+    {
+      "id": "CQ17",
+      "hop_level": 4,
+      "question": "Find researchers working on longan or durian projects with TRL >= 7, including their affiliated organization and province.",
+      "relationship_tested": "Expert -> OrgUnit -> Address + Expert -> Project -> Measurement",
+      "cypher_hint": "MATCH (p:cfPers)-[:cfPers_OrgUnit]->(org:cfOrgUnit)\nOPTIONAL MATCH (org)-[:cfOrgUnit_PAddr]->(addr:cfPAddr)\nMATCH (p)<-[:cfProj_Pers]-(proj:cfProj)\nMATCH (proj)-[:cfProj_Meas]->(meas:cfMeas)<-[:cfIndic_Meas]-(ind:cfIndic)\nWHERE ind.cfIndicId = 'INDIC003'\n  AND (\n       toLower(coalesce(proj.cfKeyw,'')) CONTAINS 'longan'\n    OR toLower(coalesce(proj.cfKeyw,'')) CONTAINS 'durian'\n    OR toLower(coalesce(proj.cfTitleEN,'')) CONTAINS 'longan'\n    OR toLower(coalesce(proj.cfTitleEN,'')) CONTAINS 'durian'\n  )\n  AND toInteger(coalesce(meas.cfCountInt, meas.cfValFloatP, meas.cfVal, 0)) >= 7\nRETURN DISTINCT\n    p.cfPersNameEN AS researcher,\n    org.cfNameEN AS organization,\n    addr.cfCity AS province,\n    proj.cfTitleEN AS project,\n    toInteger(coalesce(meas.cfCountInt, meas.cfValFloatP, meas.cfVal, 0)) AS trl\nORDER BY researcher",
+      "ground_truth": [
+        "Asst.Prof.Dr. Chainarong Limpiyakorn",
+        "Asst.Prof.Dr. Ladawan Jaidee",
+        "Dr. Anan Jirawattana",
+        "Dr. Pannipa Sophon",
+        "Dr. Somchai Wichitpong",
+        "Dr. Weerachai Thongdee"
+      ],
+      "notes": "Requires researcher organization/province and TRL-filtered longan/durian project."
+    },
+    {
+      "id": "CQ18",
+      "hop_level": 4,
+      "question": "Find researchers who have both a journal publication and a product with TRL >= 7 from the same project.",
+      "relationship_tested": "Expert -> Project -> Publication & Product -> TRL",
+      "cypher_hint": "MATCH (p:cfPers)<-[:cfProj_Pers]-(proj:cfProj)\nMATCH (proj)-[:cfProj_ResPubl]->(pub:cfResPubl)\nMATCH (proj)-[:cfProj_ResProd]->(prod:cfResProd)\nMATCH (proj)-[:cfProj_Meas]->(meas:cfMeas)<-[:cfIndic_Meas]-(ind:cfIndic)\nWHERE ind.cfIndicId = 'INDIC003'\n  AND toInteger(coalesce(meas.cfCountInt, meas.cfValFloatP, meas.cfVal, 0)) >= 7\nRETURN DISTINCT\n    p.cfPersNameEN AS researcher,\n    proj.cfTitleEN AS project,\n    pub.cfTitleEN AS publication,\n    prod.cfNameEN AS product,\n    toInteger(coalesce(meas.cfCountInt, meas.cfValFloatP, meas.cfVal, 0)) AS trl\nORDER BY researcher",
+      "ground_truth": [
+        "Dr. Pannipa Sophon",
+        "Dr. Somchai Wichitpong"
+      ],
+      "notes": "Publication, product, and TRL must be associated with the same project."
+    },
+    {
+      "id": "CQ19",
+      "hop_level": 4,
+      "question": "Find researchers working on longan or durian projects that have innovations with TRL >= 7.",
+      "relationship_tested": "Expert -> Project -> Measurement -> TRL",
+      "cypher_hint": "MATCH (p:cfPers)<-[:cfProj_Pers]-(proj:cfProj)\nMATCH (proj)-[:cfProj_Meas]->(meas:cfMeas)<-[:cfIndic_Meas]-(ind:cfIndic)\nWHERE ind.cfIndicId = 'INDIC003'\n  AND (\n       toLower(coalesce(proj.cfKeyw,'')) CONTAINS 'longan'\n    OR toLower(coalesce(proj.cfKeyw,'')) CONTAINS 'durian'\n    OR toLower(coalesce(proj.cfTitleEN,'')) CONTAINS 'longan'\n    OR toLower(coalesce(proj.cfTitleEN,'')) CONTAINS 'durian'\n  )\n  AND toInteger(coalesce(meas.cfCountInt, meas.cfValFloatP, meas.cfVal, 0)) >= 7\nRETURN DISTINCT\n    p.cfPersNameEN AS researcher,\n    proj.cfTitleEN AS project,\n    toInteger(coalesce(meas.cfCountInt, meas.cfValFloatP, meas.cfVal, 0)) AS trl\nORDER BY researcher",
+      "ground_truth": [
+        "Asst.Prof.Dr. Chainarong Limpiyakorn",
+        "Asst.Prof.Dr. Ladawan Jaidee",
+        "Dr. Anan Jirawattana",
+        "Dr. Pannipa Sophon",
+        "Dr. Somchai Wichitpong",
+        "Dr. Weerachai Thongdee"
+      ],
+      "notes": "Longan/durian project with TRL >= 7."
+    },
+    {
+      "id": "CQ20",
+      "hop_level": 4,
+      "question": "Find researchers whose collaborators are affiliated with different organizations and have authored publications related to longan or durian research.",
+      "relationship_tested": "Expert -> Collaborator -> Organization + Expert -> Collaborator -> Publication",
+      "cypher_hint": "MATCH (p1:cfPers)<-[:cfProj_Pers]-(proj:cfProj)-[:cfProj_Pers]->(p2:cfPers)\nWHERE p1 <> p2\nMATCH (p1)-[:cfPers_OrgUnit]->(org1:cfOrgUnit)\nMATCH (p2)-[:cfPers_OrgUnit]->(org2:cfOrgUnit)\nMATCH (p2)-[:cfPers_ResPubl]->(pub:cfResPubl)\nWHERE org1 <> org2\n  AND (\n       toLower(pub.cfTitleEN) CONTAINS 'longan'\n    OR toLower(pub.cfTitleEN) CONTAINS 'durian'\n  )\nRETURN DISTINCT p1.cfPersNameEN AS researcher",
+      "ground_truth": [
+        "Dr. Pannipa Sophon"
+      ],
+      "notes": "Changed pub.cfTitle to pub.cfTitleEN to match English pipeline output. Requires collaborator, different organization, and collaborator publication related to longan or durian."
+    }
+  ]
+}
